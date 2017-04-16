@@ -1,4 +1,4 @@
-package main;
+package sknerus.main;
 
 /**
  * Created by radek_000 on 16.04.2017.

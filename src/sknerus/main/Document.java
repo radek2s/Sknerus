@@ -1,10 +1,10 @@
-package main;
+package sknerus.main;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Created by radek_000 on 16.04.2017.
+ * @author radek2s
  */
 public abstract class Document {
 

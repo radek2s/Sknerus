@@ -1,4 +1,4 @@
-package main;
+package sknerus.main;
 
 import java.util.ArrayList;
 
