@@ -19,8 +19,10 @@ public class Main extends Application{
         BorderPane pane = loader.load();
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Sknera");
         primaryStage.show();
     }
+
 
     public static void main(String[] args){ launch(args); }
 }
