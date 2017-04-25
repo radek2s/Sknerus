@@ -1,24 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sknerus.controller.MainPaneController">
-   <top>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Hello World" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets top="50.0" />
-         </BorderPane.margin>
-      </Label>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="600.0" style="-fx-background-color: #ccccb3;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sknerus.controller.MainPaneController">
    <bottom>
-      <Button mnemonicParsing="false" prefWidth="100.0" text="Exit" onAction="#exit" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#exit" prefWidth="100.0" text="Exit" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="40.0" />
          </BorderPane.margin>
       </Button>
    </bottom>
+   <center>
+      <Pane prefHeight="509.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="88.0" layoutY="6.0" prefHeight="152.0" prefWidth="430.0" style="-fx-background-color: #f5f5f0;">
+               <children>
+                  <Button layoutX="25.0" layoutY="76.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="177.0" text="Wprowadź dane ręcznie" />
+                  <Button layoutX="225.0" layoutY="76.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="177.0" text="Wprowadź dane z pliku" />
+                  <Label layoutX="95.0" layoutY="14.0" prefHeight="39.0" prefWidth="236.0" text="Wprowadzanie danych faktury/paragonu" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <padding>
+                  <Insets top="0.1" />
+               </padding>
+            </Pane>
+            <Pane layoutX="87.0" layoutY="166.0" prefHeight="163.0" prefWidth="430.0" style="-fx-background-color: #f5f5f0;">
+               <children>
+                  <Label layoutX="184.0" layoutY="1.0" prefHeight="27.0" prefWidth="63.0" text="MAGAZYN">
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="20.0" layoutY="28.0" prefHeight="130.0" prefWidth="391.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="TYP" />
+                      <TableColumn prefWidth="75.0" text="NUMER" />
+                        <TableColumn prefWidth="155.0" text="NAZWA" />
+                        <TableColumn prefWidth="84.0" text="KWOTA" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+            <Pane layoutX="86.0" layoutY="344.0" prefHeight="90.0" prefWidth="431.0" style="-fx-background-color: #f5f5f0;">
+               <children>
+                  <Label layoutX="35.0" layoutY="27.0" prefHeight="37.0" prefWidth="131.0" text="Rozliczenie ilościowe" />
+                  <Button layoutX="249.0" layoutY="15.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="146.0" text="Generuj raport" />
+               </children>
+            </Pane>
+            <Pane layoutX="85.0" layoutY="443.0" prefHeight="90.0" prefWidth="431.0" style="-fx-background-color: #f5f5f0;">
+               <children>
+                  <Label layoutX="28.0" layoutY="37.0" text="Rozliczenie jakościowe" />
+                  <Button layoutX="255.0" layoutY="14.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="146.0" text="Generuj raport" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </center>
 </BorderPane>
