@@ -8,18 +8,17 @@ import java.util.ArrayList;
  */
 public abstract class Document {
 
-    String              number;
-    int                 value;
-    LocalDateTime       time;
-    Vendor              vendor;
-    ArrayList<Product>  products;
+    public abstract String getType();
 
-    public Document(Vendor vendor,String number, ArrayList<Product> products){
-        this.time = LocalDateTime.now();
-        this.number = number;
-        this.vendor = vendor;
-        this.products = products;
+    public abstract String getNumber();
 
+    public abstract String getName();
+
+    public abstract float getValue();
+
+    @Override
+    public String toString(){
+        return this.getType() + ";" + this.getNumber() + ";" + this.getName() + ";" + this.getValue();
     }
 
 

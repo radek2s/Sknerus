@@ -1,5 +1,8 @@
 package sknerus.main;
 
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.ArrayList;
 
 /**
@@ -8,24 +11,51 @@ import java.util.ArrayList;
  */
 public class Invoice extends Document {
 
-    private Vendor purchaser;
-    private float sumNet;
-    private float sumGross;
-    private float sumVat;
+    private final SimpleStringProperty type;
+    private final SimpleStringProperty number;
+    private final SimpleStringProperty name;
+    private final SimpleFloatProperty value;
 
-
-    public Invoice(Vendor vendor, String number, ArrayList<Product> products, Vendor purchaser) {
-        super(vendor, number, products);
-        this.purchaser = purchaser;
-
-        for (Product product: products){
-            sumNet += product.getValue();
-        }
-        sumGross = (float) (sumNet*0.22);
-        sumVat = sumNet - sumGross;
+    public Invoice(String number, String name, float value){
+        this.type = new SimpleStringProperty("faktura");
+        this.number = new SimpleStringProperty("F_"+number);
+        this.name = new SimpleStringProperty(name);
+        this.value = new SimpleFloatProperty(value);
     }
 
-    public float getSumNet(){
-        return this.sumNet;
+    @Override
+    public String getType() {
+        return "Faktura";
+    }
+
+    @Override
+    public String getNumber() {
+        return number.get();
+    }
+
+    @Override
+    public String getName() {
+        return name.get();
+    }
+
+    @Override
+    public float getValue() {
+        return value.get();
+    }
+
+    public void setType(String type) {
+        this.type.set(type);
+    }
+
+    public void setNumber(String number) {
+        this.number.set(number);
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setValue(float value) {
+        this.value.set(value);
     }
 }
