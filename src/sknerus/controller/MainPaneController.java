@@ -1,7 +1,5 @@
 package sknerus.controller;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +13,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sknerus.main.AppCore;
 import sknerus.main.Document;
-import sknerus.main.PDFGenerator;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -36,8 +35,11 @@ public class MainPaneController implements Initializable {
     @FXML
     private TableColumn<Document, String> tableCol3;
     @FXML
-    private TableColumn<Document, Float> tableCol4;
-
+    private TableColumn<Document, String> tableCol4;
+    @FXML
+    private TableColumn<Document, Float> tableCol5;
+    @FXML
+    private TableColumn<Document, Integer> tableCol6;
 
     @FXML
     public void getDataFromUser(){
@@ -90,7 +92,7 @@ public class MainPaneController implements Initializable {
                 while (( line = bufferedReader.readLine()) != null){
 
                     String[] csvData = line.split(separator);
-                    AppCore.getInstance().addData(csvData[0],csvData[1],csvData[2],Float.valueOf(csvData[3]));
+                    AppCore.getInstance().addData(csvData[0],csvData[1],csvData[2],csvData[3],Float.valueOf(csvData[4]),Integer.parseInt(csvData[5]));
 
                 }
             } catch (IOException e) {
@@ -141,13 +143,19 @@ public class MainPaneController implements Initializable {
                 new PropertyValueFactory<>("type")
         );
         tableCol2.setCellValueFactory(
-                new PropertyValueFactory<>("number")
+                new PropertyValueFactory<>("creationDate")
         );
         tableCol3.setCellValueFactory(
-                new PropertyValueFactory<>("name")
+                new PropertyValueFactory<>("number")
         );
         tableCol4.setCellValueFactory(
+                new PropertyValueFactory<>("name")
+        );
+        tableCol5.setCellValueFactory(
                 new PropertyValueFactory<>("value")
+        );
+        tableCol6.setCellValueFactory(
+                new PropertyValueFactory<>("amount")
         );
     }
 }

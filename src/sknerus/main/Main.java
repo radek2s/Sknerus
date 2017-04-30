@@ -24,5 +24,9 @@ public class Main extends Application{
     }
 
 
+    //TODO: 1.Utworzyć plik kontrolera InputData - 2.dodać do widoku pole ilość - 3. Utowrzyc metode '@FXML public void zapisz' w
+    // dzięki której dane z pól zostaną zapisane do AppCore.getInstance poprzez metodę addData([...parametry...])
+
+
     public static void main(String[] args){ launch(args); }
 }

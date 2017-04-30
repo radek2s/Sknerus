@@ -55,9 +55,9 @@ public class AppCore {
      *              wystarczy jej przekazać odpowiednie paramtery a utworzy nowa
      *              instancje dokumentu w tablicy 'data';
      */
-    public void addData(String type, String id, String name, Float value){
+    public void addData(String type,String date, String id, String name, Float value, int amount){
         int count = data.size();
-        data.add(DocumentFactory.getDocument(type,id + "0" + String.valueOf(count+1),name,value));
+        data.add(DocumentFactory.getDocument(type,date, id + "0" + String.valueOf(count+1),name,value,amount));
 
         /* Jesli ilosc danych wzrozla o 20 generuj raport */
         if ( count % 20 == 0 ){

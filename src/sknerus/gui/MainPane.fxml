@@ -24,7 +24,7 @@
             <Pane layoutX="88.0" layoutY="6.0" prefHeight="152.0" prefWidth="430.0" style="-fx-background-color: #f5f5f0;">
                <children>
                   <Button layoutX="25.0" layoutY="76.0" mnemonicParsing="false" onAction="#getDataFromUser" prefHeight="59.0" prefWidth="177.0" text="Wprowadź dane ręcznie" />
-                  <Button layoutX="225.0" layoutY="76.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="177.0" onAction="#readFromFile" text="Wprowadź dane z pliku" />
+                  <Button layoutX="225.0" layoutY="76.0" mnemonicParsing="false" onAction="#readFromFile" prefHeight="59.0" prefWidth="177.0" text="Wprowadź dane z pliku" />
                   <Label layoutX="95.0" layoutY="14.0" prefHeight="39.0" prefWidth="236.0" text="Wprowadzanie danych faktury/paragonu" />
                </children>
                <cursor>
@@ -36,7 +36,7 @@
             </Pane>
             <Pane layoutX="87.0" layoutY="166.0" prefHeight="163.0" prefWidth="430.0" style="-fx-background-color: #f5f5f0;">
                <children>
-                  <Button fx:id="refresh_btn" onAction="#refreshTable" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="R" />
+                  <Button fx:id="refresh_btn" mnemonicParsing="false" onAction="#refreshTable" prefHeight="25.0" prefWidth="40.0" text="R" />
                   <Label layoutX="184.0" layoutY="1.0" prefHeight="27.0" prefWidth="63.0" text="MAGAZYN">
                      <font>
                         <Font name="Arial Bold" size="12.0" />
@@ -45,9 +45,11 @@
                   <TableView fx:id="tableView" layoutX="20.0" layoutY="28.0" prefHeight="130.0" prefWidth="391.0">
                     <columns>
                       <TableColumn fx:id="tableCol1" prefWidth="75.0" text="TYP" />
-                      <TableColumn fx:id="tableCol2" prefWidth="75.0" text="NUMER" />
-                        <TableColumn fx:id="tableCol3" prefWidth="155.0" text="NAZWA" />
-                        <TableColumn fx:id="tableCol4" prefWidth="84.0" text="KWOTA" />
+                       <TableColumn fx:id="tableCol2" prefWidth="75.0" text="DATA" />
+                      <TableColumn fx:id="tableCol3" prefWidth="75.0" text="NUMER" />
+                        <TableColumn fx:id="tableCol4" prefWidth="155.0" text="NAZWA" />
+                        <TableColumn fx:id="tableCol5" prefWidth="84.0" text="KWOTA" />
+                        <TableColumn fx:id="tableCol6" prefWidth="75.0" text="ILOSC" />
                     </columns>
                   </TableView>
                </children>

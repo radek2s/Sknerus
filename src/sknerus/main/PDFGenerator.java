@@ -47,11 +47,13 @@ public class PDFGenerator {
     public static Element createTable(ObservableList list){
 
         String header1 = "Typ dokumentu";
-        String header2 = "Numer dokumentu";
-        String header3 = "Nazwa";
-        String header4 = "Wartosc";
+        String header2 = "Data";
+        String header3 = "Numer dokumentu";
+        String header4 = "Nazwa";
+        String header5 = "Wartosc";
+        String header6 = "Ilosc";
         
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(6);
 
         PdfPCell cell1 = new PdfPCell(new Phrase(header1));
         cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -69,12 +71,22 @@ public class PDFGenerator {
         cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell4);
 
+        PdfPCell cell5 = new PdfPCell(new Phrase(header5));
+        cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell5);
+
+        PdfPCell cell6 = new PdfPCell(new Phrase(header6));
+        cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell6);
+
         for (Object row : list) {
             String[] temp = row.toString().split(";");
             table.addCell(temp[0]);
             table.addCell(temp[1]);
             table.addCell(temp[2]);
             table.addCell(temp[3]);
+            table.addCell(temp[4]);
+            table.addCell(temp[5]);
         }
 
         

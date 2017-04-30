@@ -10,15 +10,19 @@ public abstract class Document {
 
     public abstract String getType();
 
+    public abstract String getCreationDate();
+
     public abstract String getNumber();
 
     public abstract String getName();
 
     public abstract float getValue();
 
+    public abstract int getAmount();
+
     @Override
     public String toString(){
-        return this.getType() + ";" + this.getNumber() + ";" + this.getName() + ";" + this.getValue();
+        return this.getType() + ";" + this.getCreationDate() + ";" + this.getNumber() + ";" + this.getName() + ";" + this.getValue() + ";" + this.getAmount();
     }
 
 
