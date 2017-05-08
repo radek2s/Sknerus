@@ -6,18 +6,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sknerus.controller.InputDataController">
    <children>
       <Label layoutX="157.0" layoutY="14.0" prefHeight="62.0" prefWidth="197.0" text="Wprowadź dane:">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <TextField layoutX="207.0" layoutY="250.0" prefHeight="25.0" prefWidth="197.0" />
-      <TextField layoutX="207.0" layoutY="323.0" prefHeight="26.0" prefWidth="197.0" />
-      <TextField layoutX="207.0" layoutY="174.0" prefHeight="26.0" prefWidth="197.0" />
-      <TextField layoutX="207.0" layoutY="97.0" prefHeight="25.0" prefWidth="197.0" />
+
+      <TextField fx:id="tf3" layoutX="207.0" layoutY="250.0" prefHeight="25.0" prefWidth="197.0" />
+      <TextField fx:id="tf4" layoutX="207.0" layoutY="323.0" prefHeight="26.0" prefWidth="197.0" />
+      <TextField fx:id="tf2" layoutX="207.0" layoutY="174.0" prefHeight="26.0" prefWidth="197.0" />
+      <TextField fx:id="tf1" layoutX="207.0" layoutY="97.0" prefHeight="25.0" prefWidth="197.0" />
+      <TextField fx:id="tf5" layoutX="207.0" layoutY="383.0" prefHeight="25.0" prefWidth="197.0" />
       <Label layoutX="108.0" layoutY="101.0" prefHeight="25.0" prefWidth="67.0" text="TYP:">
          <font>
             <Font size="17.0" />
@@ -38,7 +39,14 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Button layoutX="163.0" layoutY="408.0" mnemonicParsing="false" text="Zapisz" />
-      <Button layoutX="297.0" layoutY="408.0" mnemonicParsing="false" text="Zamknij" />
+      <Label layoutX="108.0" layoutY="382.0" prefHeight="17.0" prefWidth="84.0" text="ILOSC:">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+
+      <Button layoutX="159.0" layoutY="433.0" mnemonicParsing="false" onAction="#save" text="Zapisz" />
+      <Button layoutX="296.0" layoutY="433.0" mnemonicParsing="false" onAction="#close" text="Zamknij" />
+
    </children>
 </Pane>

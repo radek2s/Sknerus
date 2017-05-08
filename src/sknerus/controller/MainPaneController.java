@@ -51,7 +51,9 @@ public class MainPaneController implements Initializable {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle("Input data - manual mode");
             stage.show();
+
 
         } catch (IOException e){
             e.printStackTrace();

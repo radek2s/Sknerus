@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="600.0" style="-fx-background-color: #ccccb3;" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sknerus.controller.MainPaneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="600.0" style="-fx-background-color: #ccccb3;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sknerus.controller.MainPaneController">
    <bottom>
       <Button mnemonicParsing="false" onAction="#exit" prefWidth="100.0" text="Exit" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -46,8 +46,8 @@
                     <columns>
                       <TableColumn fx:id="tableCol1" prefWidth="75.0" text="TYP" />
                        <TableColumn fx:id="tableCol2" prefWidth="75.0" text="DATA" />
-                      <TableColumn fx:id="tableCol3" prefWidth="75.0" text="NUMER" />
-                        <TableColumn fx:id="tableCol4" prefWidth="155.0" text="NAZWA" />
+                      <TableColumn fx:id="tableCol3" prefWidth="102.0" text="NUMER" />
+                        <TableColumn fx:id="tableCol4" prefWidth="128.0" text="NAZWA" />
                         <TableColumn fx:id="tableCol5" prefWidth="84.0" text="KWOTA" />
                         <TableColumn fx:id="tableCol6" prefWidth="75.0" text="ILOSC" />
                     </columns>
