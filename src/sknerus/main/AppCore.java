@@ -4,12 +4,11 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
-import java.util.LinkedList;
 
 /**
  * @author radek2s
@@ -20,6 +19,7 @@ public class AppCore {
 
     private static AppCore instance = null;
 
+    public Stage currentStage = null;
     public final ObservableList<Document> data;
 
 

@@ -49,7 +49,8 @@ public class MainPaneController implements Initializable {
 
             root = FXMLLoader.load(this.getClass().getResource("../gui/InputData.fxml"));
 
-            Stage stage = new Stage();
+            AppCore.getInstance().currentStage = new Stage();
+            Stage stage = AppCore.getInstance().currentStage;
             stage.setScene(new Scene(root));
             stage.setTitle("Input data - manual mode");
             stage.show();

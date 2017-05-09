@@ -5,32 +5,37 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import sknerus.main.AppCore;
+import sknerus.main.Main;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 /**
- * Created by Dell on 2017-04-25.
+ * @author lgrzegorek
+ * @version 1.0 created on 2017-04-25.
+ *          Description:
  */
 public class InputDataController {
 
-    private MainPaneController mainPaneController;
-
     @FXML
+    private
     TextField tf1;
     @FXML
+    private
     TextField tf2;
     @FXML
+    private
     TextField tf3;
     @FXML
+    private
     TextField tf4;
     @FXML
+    private
     TextField tf5;
 
     //display todays date
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String dateNow = sdf.format(new Date());
-
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private String dateNow = sdf.format(new Date());
 
     @FXML
     public void save(){
@@ -38,6 +43,6 @@ public class InputDataController {
     }
     @FXML
     public void close(){
-      Platform.exit();
+        AppCore.getInstance().currentStage.close();
     }
 }
