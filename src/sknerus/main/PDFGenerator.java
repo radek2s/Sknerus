@@ -52,8 +52,11 @@ public class PDFGenerator {
         String header4 = "Nazwa";
         String header5 = "Wartosc";
         String header6 = "Ilosc";
+        String header7 = "Podatek";
+        String header8 = "Stan";
+        String header9 = "Klient";
         
-        PdfPTable table = new PdfPTable(6);
+        PdfPTable table = new PdfPTable(9);
 
         PdfPCell cell1 = new PdfPCell(new Phrase(header1));
         cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -79,14 +82,29 @@ public class PDFGenerator {
         cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell6);
 
+        PdfPCell cell7 = new PdfPCell(new Phrase(header7));
+        cell7.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell7);
+
+        PdfPCell cell8 = new PdfPCell(new Phrase(header8));
+        cell8.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell8);
+
+        PdfPCell cell9 = new PdfPCell(new Phrase(header9));
+        cell9.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell9);
+
         for (Object row : list) {
             String[] temp = row.toString().split(";");
+            table.addCell(temp[3]);
             table.addCell(temp[0]);
             table.addCell(temp[1]);
-            table.addCell(temp[2]);
-            table.addCell(temp[3]);
             table.addCell(temp[4]);
             table.addCell(temp[5]);
+            table.addCell(temp[6]);
+            table.addCell(temp[7]);
+            table.addCell(temp[2]);
+            table.addCell(temp[8]);
         }
 
         

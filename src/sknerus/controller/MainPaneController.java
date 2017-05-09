@@ -1,25 +1,34 @@
 package sknerus.controller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sknerus.main.AppCore;
 import sknerus.main.Document;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
 
 /**
  * Created by radek_000 on 16.04.2017.
@@ -37,9 +46,19 @@ public class MainPaneController implements Initializable {
     @FXML
     private TableColumn<Document, String> tableCol4;
     @FXML
-    private TableColumn<Document, Float> tableCol5;
+    private TableColumn<Document, String> tableCol5;
     @FXML
     private TableColumn<Document, Float> tableCol6;
+    @FXML
+    private TableColumn<Document, Float> tableCol7;
+    @FXML
+    private TableColumn<Document, String> tableCol8;
+    @FXML
+    private TableColumn<Document, String> tableCol9;
+
+    @FXML
+    private Label currentTime;
+
 
     @FXML
     public void getDataFromUser(){
@@ -96,6 +115,7 @@ public class MainPaneController implements Initializable {
 
                     String[] csvData = line.split(separator);
                     try{
+
                         AppCore.getInstance().addData(csvData[0],csvData[1],csvData[2],csvData[3],csvData[4],Float.valueOf(csvData[5]),Float.valueOf(csvData[6]),csvData[7],csvData[8]);
 
                     } catch ( ArrayIndexOutOfBoundsException e){
@@ -146,25 +166,49 @@ public class MainPaneController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tableView.setEditable(true);
+        tableView.setEditable(false);
+
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
         tableCol1.setCellValueFactory(
-                new PropertyValueFactory<>("type")
-        );
-        tableCol2.setCellValueFactory(
                 new PropertyValueFactory<>("creationDate")
         );
-        tableCol3.setCellValueFactory(
+        tableCol2.setCellValueFactory(
                 new PropertyValueFactory<>("number")
         );
+        tableCol3.setCellValueFactory(
+                new PropertyValueFactory<>("docType")
+        );
         tableCol4.setCellValueFactory(
-                new PropertyValueFactory<>("name")
+                new PropertyValueFactory<>("type")
         );
         tableCol5.setCellValueFactory(
-                new PropertyValueFactory<>("value")
+                new PropertyValueFactory<>("name")
         );
         tableCol6.setCellValueFactory(
+                new PropertyValueFactory<>("value")
+        );
+        tableCol7.setCellValueFactory(
                 new PropertyValueFactory<>("amount")
         );
+        tableCol8.setCellValueFactory(
+                new PropertyValueFactory<>("tax")
+        );
+        tableCol9.setCellValueFactory(
+                new PropertyValueFactory<>("client")
+        );
     }
+
+    DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    final Timeline timeline = new Timeline(
+            new KeyFrame(
+                    Duration.millis(500),
+                    event -> {
+                        currentTime.setText(timeFormat.format(System.currentTimeMillis()));
+                    }
+            )
+    );
+
+
 }

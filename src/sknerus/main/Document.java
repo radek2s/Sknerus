@@ -1,36 +1,119 @@
 package sknerus.main;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author radek2s
  */
 public abstract class Document {
 
-    public abstract String getType();
+    protected final SimpleStringProperty creationDate;
+    protected final SimpleStringProperty number;
+    protected final SimpleStringProperty docType;
+    protected final SimpleStringProperty type;
+    protected final SimpleStringProperty name;
+    protected final SimpleFloatProperty value;
+    protected final SimpleFloatProperty amount;
+    protected final SimpleStringProperty tax;
+    protected final SimpleStringProperty client;
 
-    public abstract String getDocType();
+    public Document(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client){
+        String dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Integer.valueOf(date) * 1000L));
 
-    public abstract String getCreationDate();
+        this.creationDate   = new SimpleStringProperty(dateAsText);
+        this.number         = new SimpleStringProperty(id);
+        this.docType        = new SimpleStringProperty(type);
+        this.type           = new SimpleStringProperty(document);
+        this.name           = new SimpleStringProperty(name);
+        this.value          = new SimpleFloatProperty(value);
+        this.amount         = new SimpleFloatProperty(amount);
+        this.tax            = new SimpleStringProperty(tax);
+        this.client         = new SimpleStringProperty(client);
 
-    public abstract String getNumber();
+    }
 
-    public abstract String getName();
+    public String getCreationDate() {
+        return creationDate.get();
+    }
 
-    public abstract float getValue();
+    public String getNumber() {
+        return number.get();
+    }
 
-    public abstract float getAmount();
+    public String getDocType() {
+        return docType.get();
+    }
 
-    public abstract String getVat();
+    public String getType() {
+        return type.get();
+    }
 
-    public abstract String getClient();
+    public String getName() {
+        return name.get();
+    }
 
+    public float getValue() {
+        return value.get();
+    }
 
-    //TODO: dodać getDocType i getVat i getClient
+    public float getAmount() {
+        return amount.get();
+    }
+
+    public String getTax() {
+        return tax.get();
+    }
+
+    public String getClient() {
+        return client.get();
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate.set(creationDate);
+    }
+
+    public void setNumber(String number) {
+        this.number.set(number);
+    }
+
+    public void setDocType(String docType) {
+        this.docType.set(docType);
+    }
+
+    public void setType(String type) {
+        this.type.set(type);
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setValue(float value) {
+        this.value.set(value);
+    }
+
+    public void setAmount(float amount) {
+        this.amount.set(amount);
+    }
+
+    public void setTax(String tax) {
+        this.tax.set(tax);
+    }
+
+    public void setClient(String client) {
+        this.client.set(client);
+    }
+
     @Override
     public String toString(){
-        return this.getType() + ";" + this.getCreationDate() + ";" + this.getNumber() + ";" + this.getName() + ";" + this.getValue() + ";" + this.getAmount();
+        return this.getCreationDate() + ";" + this.getNumber() + ";" +
+                this.getDocType() + ";" + this.getType() + ";" +
+                this.getName() + ";" + this.getValue() + ";" +
+                this.getAmount() + ";" + this.getTax() + ";" + getClient();
     }
 
 

@@ -1,17 +1,13 @@
 package sknerus.main;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
-import java.util.ArrayList;
-
 /**
- * Created by radek_000 on 16.04.2017.
+ * @author radek2s
+ * @version created on &{DATE}.
+ *          Description:
  */
-public class Receipt extends Document{
+public class Payment extends Document {
 
-    public Receipt(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client) {
+    public Payment(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client) {
         super(date, id, type, document, name, value, amount, tax, client);
     }
 
@@ -32,7 +28,7 @@ public class Receipt extends Document{
 
     @Override
     public String getType() {
-        return "Paragon";
+        return "Platonsc";
     }
 
     @Override

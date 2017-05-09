@@ -7,16 +7,16 @@ package sknerus.main;
  */
 public class DocumentFactory {
 
-    public static Document getDocument(String type, String date, String id, String docType, String name, float value, float amount, String tax, String client){
+    public static Document getDocument(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client){
 
-        if ( type.equalsIgnoreCase("receipt")){
-            return new Receipt(id, date,docType, name, value, amount, tax, client);
-        } else if ( type.equalsIgnoreCase("invoice")){
-            return new Invoice(id, date,docType, name, value, amount, tax, client);
-        } else if ( type.equalsIgnoreCase("paymanet")){
-            return new Receipt(id, date,docType, name, value, amount, tax, client);
-        } else if ( type.equalsIgnoreCase("other")){
-            return new Receipt(id, date,docType, name, value, amount, tax, client);
+        if ( document.equalsIgnoreCase("receipt") || document.equalsIgnoreCase("paragon")){
+            return new Receipt(date,id,type,document,name,value,amount,tax,client);
+        } else if ( document.equalsIgnoreCase("invoice") || document.equalsIgnoreCase("faktura")){
+            return new Invoice(date,id,type,document,name,value,amount,tax,client);
+        } else if ( document.equalsIgnoreCase("payment") || document.equalsIgnoreCase("platnosc")){
+            return new Payment(date,id,type,document,name,value,amount,tax,client);
+        } else if ( document.equalsIgnoreCase("other") || document.equalsIgnoreCase("inne")){
+            return new OtherDocument(date,id,type,document,name,value,amount,tax,client);
         }
         return null;
     }

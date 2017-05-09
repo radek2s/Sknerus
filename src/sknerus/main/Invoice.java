@@ -1,40 +1,14 @@
 package sknerus.main;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * @author radek2s
  * Invoice document class.
  */
 public class Invoice extends Document {
 
-    private final SimpleStringProperty type;
-    private final SimpleStringProperty creationDate;
-    private final SimpleStringProperty number;
-    private final SimpleStringProperty name;
-    private final SimpleFloatProperty value;
-    private final SimpleFloatProperty amount;
-    private final SimpleStringProperty docType;
-    private final SimpleStringProperty tax;
-    private final SimpleStringProperty client;
+    public Invoice(String creationDate,String id,String type, String document, String name, float value, float amount, String tax, String client){
 
-    public Invoice(String number,String creationDate,String docType, String name, float value, float amount, String tax, String client){
-
-        this.type = new SimpleStringProperty("faktura");
-        this.creationDate = new SimpleStringProperty(creationDate);
-        this.number = new SimpleStringProperty("F_"+number);
-        this.name = new SimpleStringProperty(name);
-        this.value = new SimpleFloatProperty(value);
-        this.amount = new SimpleFloatProperty(amount);
-        this.docType = new SimpleStringProperty(docType);
-        this.tax = new SimpleStringProperty(tax);
-        this.client = new SimpleStringProperty(client);
+        super(creationDate,id,type,document,name,value,amount,tax,client);
     }
 
     @Override
@@ -73,7 +47,7 @@ public class Invoice extends Document {
     }
 
     @Override
-    public String getVat() {
+    public String getTax() {
         return tax.get();
     }
 
@@ -82,27 +56,4 @@ public class Invoice extends Document {
         return client.get();
     }
 
-    public void setType(String type) {
-        this.type.set(type);
-    }
-
-    public void setNumber(String number) {
-        this.number.set(number);
-    }
-
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
-    public void setValue(float value) {
-        this.value.set(value);
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate.set(creationDate);
-    }
-
-    public void setAmount(int amount) {
-        this.amount.set(amount);
-    }
 }
