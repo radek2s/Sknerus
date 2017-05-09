@@ -7,12 +7,16 @@ package sknerus.main;
  */
 public class DocumentFactory {
 
-    public static Document getDocument(String type, String date, String id, String name, float value, int amount){
+    public static Document getDocument(String type, String date, String id, String docType, String name, float value, float amount, String tax, String client){
 
-        if ( type.equalsIgnoreCase("paragon")){
-            return new Receipt(id, date, name, value, amount);
-        } else if ( type.equalsIgnoreCase("faktura")){
-            return new Invoice(id, date, name, value, amount);
+        if ( type.equalsIgnoreCase("receipt")){
+            return new Receipt(id, date,docType, name, value, amount, tax, client);
+        } else if ( type.equalsIgnoreCase("invoice")){
+            return new Invoice(id, date,docType, name, value, amount, tax, client);
+        } else if ( type.equalsIgnoreCase("paymanet")){
+            return new Receipt(id, date,docType, name, value, amount, tax, client);
+        } else if ( type.equalsIgnoreCase("other")){
+            return new Receipt(id, date,docType, name, value, amount, tax, client);
         }
         return null;
     }

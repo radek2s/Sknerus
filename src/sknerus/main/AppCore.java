@@ -55,14 +55,14 @@ public class AppCore {
      *              wystarczy jej przekazać odpowiednie paramtery a utworzy nowa
      *              instancje dokumentu w tablicy 'data';
      */
-    public void addData(String type,String date, String id, String name, Float value, int amount){
+    public void addData(String date, String id, String docType, String type, String name, Float value, Float amount, String tax, String client) {
         int count = data.size();
-        data.add(DocumentFactory.getDocument(type,date, id + "0" + String.valueOf(count+1),name,value,amount));
+        data.add(DocumentFactory.getDocument(type,date, id + "0" + String.valueOf(count+1),docType,name,value,amount,tax,client));
 
         /* Jesli ilosc danych wzrozla o 20 generuj raport */
-        if ( count % 20 == 0 ){
-            generatePDF(1);
-        }
+//        if ( count % 1000 == 0 ){
+//            generatePDF(1);
+//        }
     }
 
     public void generatePDF(int index){

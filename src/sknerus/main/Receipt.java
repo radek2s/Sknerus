@@ -16,20 +16,31 @@ public class Receipt extends Document{
     private final SimpleStringProperty number;
     private final SimpleStringProperty name;
     private final SimpleFloatProperty value;
-    private final SimpleIntegerProperty amount;
+    private final SimpleFloatProperty amount;
+    private final SimpleStringProperty docType;
+    private final SimpleStringProperty tax;
+    private final SimpleStringProperty client;
 
-    public Receipt(String number,String creationDate, String name, float value, int amount){
+    public Receipt(String number,String creationDate,String docType, String name, float value, float amount, String tax, String client){
         this.type = new SimpleStringProperty("paragon");
         this.creationDate = new SimpleStringProperty(creationDate);
         this.number = new SimpleStringProperty("P_"+number);
         this.name = new SimpleStringProperty(name);
         this.value = new SimpleFloatProperty(value);
-        this.amount = new SimpleIntegerProperty(amount);
+        this.amount = new SimpleFloatProperty(amount);
+        this.docType = new SimpleStringProperty(docType);
+        this.tax = new SimpleStringProperty(tax);
+        this.client = new SimpleStringProperty(client);
     }
 
     @Override
     public String getType() {
         return "Paragon";
+    }
+
+    @Override
+    public String getDocType() {
+        return docType.get();
     }
 
     @Override
@@ -53,8 +64,18 @@ public class Receipt extends Document{
     }
 
     @Override
-    public int getAmount() {
+    public float getAmount() {
         return amount.get();
+    }
+
+    @Override
+    public String getVat() {
+        return tax.get();
+    }
+
+    @Override
+    public String getClient() {
+        return client.get();
     }
 
     public void setType(String type) {

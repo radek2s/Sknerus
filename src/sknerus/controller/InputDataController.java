@@ -39,7 +39,7 @@ public class InputDataController {
 
     @FXML
     public void save(){
-        AppCore.getInstance().addData(tf1.getText(),dateNow , tf2.getText(),tf3.getText(),Float.parseFloat(tf4.getText()), Integer.parseInt(tf5.getText()) );
+        //AppCore.getInstance().addData(tf1.getText(),dateNow , tf2.getText(),tf3.getText(),Float.parseFloat(tf4.getText()), Integer.parseInt(tf5.getText()) );
     }
     @FXML
     public void close(){

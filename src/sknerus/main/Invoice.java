@@ -4,7 +4,9 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author radek2s
@@ -17,20 +19,32 @@ public class Invoice extends Document {
     private final SimpleStringProperty number;
     private final SimpleStringProperty name;
     private final SimpleFloatProperty value;
-    private final SimpleIntegerProperty amount;
+    private final SimpleFloatProperty amount;
+    private final SimpleStringProperty docType;
+    private final SimpleStringProperty tax;
+    private final SimpleStringProperty client;
 
-    public Invoice(String number,String creationDate, String name, float value, int amount){
+    public Invoice(String number,String creationDate,String docType, String name, float value, float amount, String tax, String client){
+
         this.type = new SimpleStringProperty("faktura");
         this.creationDate = new SimpleStringProperty(creationDate);
         this.number = new SimpleStringProperty("F_"+number);
         this.name = new SimpleStringProperty(name);
         this.value = new SimpleFloatProperty(value);
-        this.amount = new SimpleIntegerProperty(amount);
+        this.amount = new SimpleFloatProperty(amount);
+        this.docType = new SimpleStringProperty(docType);
+        this.tax = new SimpleStringProperty(tax);
+        this.client = new SimpleStringProperty(client);
     }
 
     @Override
     public String getType() {
         return "Faktura";
+    }
+
+    @Override
+    public String getDocType() {
+        return docType.get();
     }
 
     @Override
@@ -54,8 +68,18 @@ public class Invoice extends Document {
     }
 
     @Override
-    public int getAmount() {
+    public float getAmount() {
         return amount.get();
+    }
+
+    @Override
+    public String getVat() {
+        return tax.get();
+    }
+
+    @Override
+    public String getClient() {
+        return client.get();
     }
 
     public void setType(String type) {

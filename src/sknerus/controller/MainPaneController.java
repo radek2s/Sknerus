@@ -39,7 +39,7 @@ public class MainPaneController implements Initializable {
     @FXML
     private TableColumn<Document, Float> tableCol5;
     @FXML
-    private TableColumn<Document, Integer> tableCol6;
+    private TableColumn<Document, Float> tableCol6;
 
     @FXML
     public void getDataFromUser(){
@@ -74,7 +74,7 @@ public class MainPaneController implements Initializable {
      * readFromCSVfile
      * Funkcja do otwierania pliku csv i wczytania do aplikacji danych
      * Kazda nowa daną dodaje do globalnej zmiennej AppCore.getIsnstance
-     * za pomocą metody addData dodaje pojedyncza zmienna.
+     * za pomocą    metody addData dodaje pojedyncza zmienna.
      */
     @FXML
     public void readFromFile(){
@@ -89,13 +89,19 @@ public class MainPaneController implements Initializable {
         if (file != null){
             BufferedReader bufferedReader = null;
             String line;
-            String separator = ";";
+            String separator = ",";
             try {
                 bufferedReader = new BufferedReader(new FileReader(file.getAbsolutePath()));
                 while (( line = bufferedReader.readLine()) != null){
 
                     String[] csvData = line.split(separator);
-                    AppCore.getInstance().addData(csvData[0],csvData[1],csvData[2],csvData[3],Float.valueOf(csvData[4]),Integer.parseInt(csvData[5]));
+                    try{
+                        AppCore.getInstance().addData(csvData[0],csvData[1],csvData[2],csvData[3],csvData[4],Float.valueOf(csvData[5]),Float.valueOf(csvData[6]),csvData[7],csvData[8]);
+
+                    } catch ( ArrayIndexOutOfBoundsException e){
+
+                        System.out.println("Wyjatek!");
+                    }
 
                 }
             } catch (IOException e) {
