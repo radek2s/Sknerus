@@ -8,7 +8,13 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author radek2s
@@ -22,9 +28,24 @@ public class AppCore {
     public Stage currentStage = null;
     public final ObservableList<Document> data;
 
+    // Logger do zapisywania logów w programie //
+    private final static Logger LOGGER = Logger.getLogger(AppCore.class.getName());
 
     protected AppCore(){
 
+        /* --- Przygotowanie środowiksa --- */
+        Date now = new Date();
+
+        // Ustawienie czułości Loggera //
+        LOGGER.setLevel(Level.ALL);
+        // Zapisywanie Logów do plku //
+        try {
+            LOGGER.addHandler(new FileHandler("Logs - "+ DateFormat.getDateInstance().format(now) +".xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /* --- Przygotowanie danych --- */
         data = FXCollections.observableArrayList();
     }
 
@@ -45,6 +66,10 @@ public class AppCore {
         return instance;
     }
 
+    public static Logger getLogger(){
+        return LOGGER;
+    }
+
     /**
      * Add Data to data ObservableList
      * @param type - string ('faktura'/'paragon')
@@ -55,11 +80,47 @@ public class AppCore {
      *              wystarczy jej przekazać odpowiednie paramtery a utworzy nowa
      *              instancje dokumentu w tablicy 'data';
      */
-    public void addData(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client) {
+    public void addData(String[] params) {
 
-        data.add(DocumentFactory.getDocument(
-                date,id,type,document,name,value,amount,tax,client
-        ));
+
+        String str_val = "0";
+        String str_amo = "0";
+
+        if ( params.length == 9) {
+            str_val = params[5];
+            str_amo = params[6];
+
+        } else if (params.length == 11) {
+            str_val = params[5] + "." + params[6];
+            str_amo = params[7] + "." + params[8];
+        } else {
+            LOGGER.warning("Error during loading data in file! Id=" + params[1]);
+        }
+        /* Walidacja poprawoności danych */
+        Float f_value;
+        Float f_amount;
+        try {
+            f_value = Float.parseFloat(str_val);
+        } catch (NumberFormatException e){
+            f_value = 0f;
+            LOGGER.warning("In data with id=" + params[1] + " : 'value' has not supported format");
+        }
+        try {
+            f_amount = Float.parseFloat(str_amo);
+        } catch (NumberFormatException e){
+            f_amount = 0f;
+            LOGGER.warning("In data with id=" + params[1] + " : 'amount' has not supported format");
+        }
+
+        /* Wszystko jest poprawne - tworzymy dokument */
+        if ( params.length == 9){
+            data.add(DocumentFactory.getDocument(
+                    params[0],params[1],params[2],params[3],params[4],f_value,f_amount,params[7],params[8]));
+        } else if (params.length == 11){
+            data.add(DocumentFactory.getDocument(
+                    params[0],params[1],params[2],params[3],params[4],f_value,f_amount,params[9],params[10]));
+        }
+
 
         /* Jesli ilosc danych wzrozla o 20 generuj raport */
 //        if ( count % 1000 == 0 ){
@@ -67,11 +128,33 @@ public class AppCore {
 //        }
     }
 
-    public void addData(String date, String type, String document, String name, Float value, Float amount, String tax, String client){
-        int id = data.size();
+    public void addData(String date, String id, String type, String document, String name, String value,String value2, String amount, String amount2, String tax, String client) {
+
+        /* Walidacja poprawoności danych */
+
+        String str_val = value + "." + value2;
+        String str_amo = amount + "." + amount2;
+
+        Float f_value;
+        Float f_amount;
+        try {
+            f_value = Float.parseFloat(str_val);
+        } catch (NumberFormatException e){
+            f_value = 0f;
+            LOGGER.warning("In data with id=" + id + " : 'value' has not supported format");
+        }
+        try {
+            f_amount = Float.parseFloat(str_amo);
+        } catch (NumberFormatException e){
+            f_amount = 0f;
+            LOGGER.warning("In data with id=" + id + " : 'amount' has not supported format");
+        }
+
+        /* Wszystko jest poprawne - tworzymy dokument */
         data.add(DocumentFactory.getDocument(
-                date, String.valueOf(id),type,document,name,value,amount,tax,client
+                date,id,type,document,name,f_value,f_amount,tax,client
         ));
+
     }
 
     public void generatePDF(int index){

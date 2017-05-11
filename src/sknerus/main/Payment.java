@@ -28,7 +28,7 @@ public class Payment extends Document {
 
     @Override
     public String getType() {
-        return "Platonsc";
+        return "Platnosc";
     }
 
     @Override

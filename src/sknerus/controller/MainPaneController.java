@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import sknerus.main.AppCore;
 import sknerus.main.Document;
+import sknerus.main.Main;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -106,6 +107,7 @@ public class MainPaneController implements Initializable {
         );
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null){
+            AppCore.getLogger().info("Application starting loading data form file: " + file.getName());
             BufferedReader bufferedReader = null;
             String line;
             String separator = ",";
@@ -116,7 +118,8 @@ public class MainPaneController implements Initializable {
                     String[] csvData = line.split(separator);
                     try{
 
-                        AppCore.getInstance().addData(csvData[0],csvData[1],csvData[2],csvData[3],csvData[4],Float.valueOf(csvData[5]),Float.valueOf(csvData[6]),csvData[7],csvData[8]);
+                        AppCore.getInstance().addData(csvData);
+
 
                     } catch ( ArrayIndexOutOfBoundsException e){
 
@@ -138,6 +141,7 @@ public class MainPaneController implements Initializable {
 
         }
 
+        AppCore.getLogger().info("Loading from file done!");
         refreshTable();
     }
 
