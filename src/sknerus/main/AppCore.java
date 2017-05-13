@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author radek2s
@@ -72,16 +74,35 @@ public class AppCore {
 
     /**
      * Add Data to data ObservableList
-     * @param type - string ('faktura'/'paragon')
-     * @param id - string (user input id)
-     * @param name - string (name of good)
-     * @param value - float ( value of the product )
-     *              Funkcja do użycia w kontrolerze ręcznego wprowadzania dancyh
-     *              wystarczy jej przekazać odpowiednie paramtery a utworzy nowa
-     *              instancje dokumentu w tablicy 'data';
      */
     public void addData(String[] params) {
 
+        /* Regex expression */
+        String digitPattern = "^\\d+(\\.\\d+)?[fd]?";
+
+        /* Checking if input is an number */
+        Pattern pattern = Pattern.compile(digitPattern);
+        Matcher matcher = pattern.matcher(params[0]);
+        if ( !matcher.matches() ) {
+            LOGGER.warning("Incorect timestamp! " + params[0] + " It is not a number! On line = " + params[1]);
+            params[0]="1451606432";
+        }
+        matcher = pattern.matcher(params[1]);
+        if ( !matcher.matches() ) {
+            LOGGER.warning("Incorect id! " + params[1] + " It is not a number! On line = " + params[1]);
+            params[1]="404";
+        }
+        matcher = pattern.matcher(params[5]);
+        if ( !matcher.matches() ) {
+            LOGGER.warning("Incorect value! " + params[5] + "  It is not a number! On line = " + params[1]);
+            params[5]="0";
+        }
+        matcher = pattern.matcher(params[6]);
+        if ( !matcher.matches() ) {
+            LOGGER.warning("Incorect amount! " + params[6] + " It is not a number! On line = " + params[1]);
+            params[6]="0";
+        }
+        // End of regexp section //
 
         String str_val = "0";
         String str_amo = "0";
@@ -91,6 +112,16 @@ public class AppCore {
             str_amo = params[6];
 
         } else if (params.length == 11) {
+            matcher = pattern.matcher(params[7]);
+            if ( !matcher.matches() ) {
+                LOGGER.warning("Incorect value! " + params[7] + "  It is not a number! On line = " + params[1]);
+                params[7]=".0";
+            }
+            matcher = pattern.matcher(params[8]);
+            if ( !matcher.matches() ) {
+                LOGGER.warning("Incorect amount! " + params[8] + " It is not a number! On line = " + params[1]);
+                params[8]=".0";
+            }
             str_val = params[5] + "." + params[6];
             str_amo = params[7] + "." + params[8];
         } else {
@@ -103,13 +134,13 @@ public class AppCore {
             f_value = Float.parseFloat(str_val);
         } catch (NumberFormatException e){
             f_value = 0f;
-            LOGGER.warning("In data with id=" + params[1] + " : 'value' has not supported format");
+            LOGGER.warning("In data with id=" + params[1] + " : 'value' has not supported format (float)");
         }
         try {
             f_amount = Float.parseFloat(str_amo);
         } catch (NumberFormatException e){
             f_amount = 0f;
-            LOGGER.warning("In data with id=" + params[1] + " : 'amount' has not supported format");
+            LOGGER.warning("In data with id=" + params[1] + " : 'amount' has not supported format (float)");
         }
 
         /* Wszystko jest poprawne - tworzymy dokument */
@@ -122,40 +153,8 @@ public class AppCore {
         }
 
 
-        /* Jesli ilosc danych wzrozla o 20 generuj raport */
-//        if ( count % 1000 == 0 ){
-//            generatePDF(1);
-//        }
     }
 
-    public void addData(String date, String id, String type, String document, String name, String value,String value2, String amount, String amount2, String tax, String client) {
-
-        /* Walidacja poprawoności danych */
-
-        String str_val = value + "." + value2;
-        String str_amo = amount + "." + amount2;
-
-        Float f_value;
-        Float f_amount;
-        try {
-            f_value = Float.parseFloat(str_val);
-        } catch (NumberFormatException e){
-            f_value = 0f;
-            LOGGER.warning("In data with id=" + id + " : 'value' has not supported format");
-        }
-        try {
-            f_amount = Float.parseFloat(str_amo);
-        } catch (NumberFormatException e){
-            f_amount = 0f;
-            LOGGER.warning("In data with id=" + id + " : 'amount' has not supported format");
-        }
-
-        /* Wszystko jest poprawne - tworzymy dokument */
-        data.add(DocumentFactory.getDocument(
-                date,id,type,document,name,f_value,f_amount,tax,client
-        ));
-
-    }
 
     public void generatePDF(int index){
 

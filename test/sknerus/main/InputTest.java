@@ -84,5 +84,70 @@ public class InputTest {
 
     }
 
+    /**
+     * Test with unexpected letter in field where should only be a number
+     */
+    @Test
+    public void inValidDataReadTestTypoMistake() {
+
+
+        //Input values
+        String separator = ",";
+        String row = "1451606432,1s,income,Payment,PNWA,2f7.16,171.33f,11%,Client30;";
+
+        //Add Data
+        String[] csvData = row.split(separator);
+        AppCore.getInstance().addData(csvData);
+
+        String date = "1451606432";
+        String dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Integer.valueOf(date) * 1000L));
+
+        //Validate each data
+        assertEquals(dateAsText,AppCore.getInstance().data.get(0).getCreationDate());
+        assertEquals("404",AppCore.getInstance().data.get(0).getNumber());
+        assertEquals("income",AppCore.getInstance().data.get(0).getDocType());
+        assertEquals("Platnosc",AppCore.getInstance().data.get(0).getType());
+        assertEquals("PNWA",AppCore.getInstance().data.get(0).getName());
+        assertEquals(0f,AppCore.getInstance().data.get(0).getValue(),0.001);
+        assertEquals(171.33f,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals("11%",AppCore.getInstance().data.get(0).getTax());
+        assertEquals("Client30;",AppCore.getInstance().data.get(0).getClient());
+
+
+    }
+
+    /**
+     * Test with unexpected letter in field where should only be a number with wrong separatpor
+     */
+    @Test
+    public void inValidDataReadTestTypoMistakeSeparator() {
+
+
+        //Input values
+        String separator = ",";
+        String row = "1451606432,1s,income,Payment,PNWA,2f7,16,171,3s3,11%,Client30;";
+
+        //Add Data
+        String[] csvData = row.split(separator);
+        AppCore.getInstance().addData(csvData);
+
+        String date = "1451606432";
+        String dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Integer.valueOf(date) * 1000L));
+
+        //Validate each data
+        assertEquals(dateAsText,AppCore.getInstance().data.get(0).getCreationDate());
+        assertEquals("404",AppCore.getInstance().data.get(0).getNumber());
+        assertEquals("income",AppCore.getInstance().data.get(0).getDocType());
+        assertEquals("Platnosc",AppCore.getInstance().data.get(0).getType());
+        assertEquals("PNWA",AppCore.getInstance().data.get(0).getName());
+        assertEquals(0.16f,AppCore.getInstance().data.get(0).getValue(),0.001);
+        assertEquals(171.0f,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals("11%",AppCore.getInstance().data.get(0).getTax());
+        assertEquals("Client30;",AppCore.getInstance().data.get(0).getClient());
+
+
+    }
+
+
 
 }
