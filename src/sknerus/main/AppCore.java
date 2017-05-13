@@ -74,35 +74,23 @@ public class AppCore {
 
     /**
      * Add Data to data ObservableList
+     * @param params - String array with data from file after separation.
      */
     public void addData(String[] params) {
 
-        /* Regex expression */
-        String digitPattern = "^\\d+(\\.\\d+)?[fd]?";
+        if (isNotNumbersMatchs(params[0],params[1],"timestamp")){
+            params[0] = "1451606432";
+        }
+        if (isNotNumbersMatchs(params[1],params[1],"id")){
+            params[1] = "404";
+        }
+        if (isNotNumbersMatchs(params[5],params[1],"value")){
+            params[5] = "0";
+        }
+        if (isNotNumbersMatchs(params[6],params[1],"amount")){
+            params[6] = "0";
+        }
 
-        /* Checking if input is an number */
-        Pattern pattern = Pattern.compile(digitPattern);
-        Matcher matcher = pattern.matcher(params[0]);
-        if ( !matcher.matches() ) {
-            LOGGER.warning("Incorect timestamp! " + params[0] + " It is not a number! On line = " + params[1]);
-            params[0]="1451606432";
-        }
-        matcher = pattern.matcher(params[1]);
-        if ( !matcher.matches() ) {
-            LOGGER.warning("Incorect id! " + params[1] + " It is not a number! On line = " + params[1]);
-            params[1]="404";
-        }
-        matcher = pattern.matcher(params[5]);
-        if ( !matcher.matches() ) {
-            LOGGER.warning("Incorect value! " + params[5] + "  It is not a number! On line = " + params[1]);
-            params[5]="0";
-        }
-        matcher = pattern.matcher(params[6]);
-        if ( !matcher.matches() ) {
-            LOGGER.warning("Incorect amount! " + params[6] + " It is not a number! On line = " + params[1]);
-            params[6]="0";
-        }
-        // End of regexp section //
 
         String str_val = "0";
         String str_amo = "0";
@@ -112,16 +100,13 @@ public class AppCore {
             str_amo = params[6];
 
         } else if (params.length == 11) {
-            matcher = pattern.matcher(params[7]);
-            if ( !matcher.matches() ) {
-                LOGGER.warning("Incorect value! " + params[7] + "  It is not a number! On line = " + params[1]);
-                params[7]=".0";
+            if (isNotNumbersMatchs(params[7],params[1],"value")){
+                params[7] = "0";
             }
-            matcher = pattern.matcher(params[8]);
-            if ( !matcher.matches() ) {
-                LOGGER.warning("Incorect amount! " + params[8] + " It is not a number! On line = " + params[1]);
-                params[8]=".0";
+            if (isNotNumbersMatchs(params[8],params[1],"amount")){
+                params[8] = "0";
             }
+
             str_val = params[5] + "." + params[6];
             str_amo = params[7] + "." + params[8];
         } else {
@@ -151,6 +136,25 @@ public class AppCore {
             data.add(DocumentFactory.getDocument(
                     params[0],params[1],params[2],params[3],params[4],f_value,f_amount,params[9],params[10]));
         }
+
+
+    }
+
+    private boolean isNotNumbersMatchs(String text,String id, String description){
+
+        /* Regex expression */
+        String digitPattern = "^\\d+(\\.\\d+)?[fd]?";
+
+        /* Checking if input is an number */
+        Pattern pattern = Pattern.compile(digitPattern);
+        Matcher matcher = pattern.matcher(text);
+        if ( !matcher.matches() ) {
+            LOGGER.warning("In data with id=" + id + " : '"+ description +"' is not a number! ["+text+"]");
+            return true;
+        }
+        return false;
+
+        // End of regexp section //
 
 
     }
