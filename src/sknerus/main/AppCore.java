@@ -84,37 +84,47 @@ public class AppCore {
         if (isNotNumbersMatchs(params[1],params[1],"id")){
             params[1] = "404";
         }
-        if (isNotNumbersMatchs(params[5],params[1],"value")){
+        if (isNotNumbersMatchs(params[5],params[1],"amount")){
             params[5] = "0";
         }
-        if (isNotNumbersMatchs(params[6],params[1],"amount")){
+        if (isNotNumbersMatchs(params[6],params[1],"value")){
             params[6] = "0";
         }
 
+        if (isNotNumbersMatchs(params[params.length-1],params[1],"client field")){
+            String cutLastSign = params[params.length-1].trim();
+            cutLastSign = cutLastSign.substring(0,cutLastSign.length()-1);
+            if (isNotNumbersMatchs(cutLastSign,params[1],"client number")){
+                params[params.length-1]= "0";
+            } else {
+                params[params.length-1]= cutLastSign;
+            }
 
-        String str_val = "0";
+        }
+
+
         String str_amo = "0";
+        String str_val = "0";
+
 
         if ( params.length == 9) {
-            str_val = params[5];
-            str_amo = params[6];
-
-        } else if (params.length == 11) {
+            str_amo = params[5];
+            str_val = params[6];
+        } else if (params.length == 10) {
             if (isNotNumbersMatchs(params[7],params[1],"value")){
                 params[7] = "0";
             }
-            if (isNotNumbersMatchs(params[8],params[1],"amount")){
-                params[8] = "0";
-            }
+            str_amo = params[5];
+            str_val = params[6] + "." + params[7];
+            params[7] = params [8];
+            params[8] = params [9];
 
-            str_val = params[5] + "." + params[6];
-            str_amo = params[7] + "." + params[8];
         } else {
             LOGGER.warning("Error during loading data in file! Id=" + params[1]);
         }
         /* Walidacja poprawoności danych */
         Float f_value;
-        Float f_amount;
+        Integer i_amount;
         try {
             f_value = Float.parseFloat(str_val);
         } catch (NumberFormatException e){
@@ -122,20 +132,18 @@ public class AppCore {
             LOGGER.warning("In data with id=" + params[1] + " : 'value' has not supported format (float)");
         }
         try {
-            f_amount = Float.parseFloat(str_amo);
+            i_amount = Integer.parseInt(str_amo);
         } catch (NumberFormatException e){
-            f_amount = 0f;
+            i_amount = 0;
             LOGGER.warning("In data with id=" + params[1] + " : 'amount' has not supported format (float)");
         }
 
+
         /* Wszystko jest poprawne - tworzymy dokument */
-        if ( params.length == 9){
-            data.add(DocumentFactory.getDocument(
-                    params[0],params[1],params[2],params[3],params[4],f_value,f_amount,params[7],params[8]));
-        } else if (params.length == 11){
-            data.add(DocumentFactory.getDocument(
-                    params[0],params[1],params[2],params[3],params[4],f_value,f_amount,params[9],params[10]));
-        }
+
+        data.add(DocumentFactory.getDocument(
+                    params[0],params[1],params[2],params[3],params[4],i_amount,f_value,params[7], Integer.valueOf(params[8])));
+
 
 
     }

@@ -1,6 +1,7 @@
 package sknerus.main;
 
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.text.SimpleDateFormat;
@@ -17,11 +18,11 @@ public abstract class Document {
     protected final SimpleStringProperty type;
     protected final SimpleStringProperty name;
     protected final SimpleFloatProperty value;
-    protected final SimpleFloatProperty amount;
+    protected final SimpleIntegerProperty amount;
     protected final SimpleStringProperty tax;
-    protected final SimpleStringProperty client;
+    protected final SimpleIntegerProperty client;
 
-    public Document(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client){
+    public Document(String date, String id, String type, String document, String name, Float value, Integer amount, String tax, Integer client){
         String dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Integer.valueOf(date) * 1000L));
 
         this.creationDate   = new SimpleStringProperty(dateAsText);
@@ -30,9 +31,9 @@ public abstract class Document {
         this.type           = new SimpleStringProperty(document);
         this.name           = new SimpleStringProperty(name);
         this.value          = new SimpleFloatProperty(value);
-        this.amount         = new SimpleFloatProperty(amount);
+        this.amount         = new SimpleIntegerProperty(amount);
         this.tax            = new SimpleStringProperty(tax);
-        this.client         = new SimpleStringProperty(client);
+        this.client         = new SimpleIntegerProperty(client);
 
     }
 
@@ -60,7 +61,7 @@ public abstract class Document {
         return value.get();
     }
 
-    public float getAmount() {
+    public int getAmount() {
         return amount.get();
     }
 
@@ -68,7 +69,7 @@ public abstract class Document {
         return tax.get();
     }
 
-    public String getClient() {
+    public int getClient() {
         return client.get();
     }
 
@@ -96,7 +97,7 @@ public abstract class Document {
         this.value.set(value);
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(int amount) {
         this.amount.set(amount);
     }
 
@@ -104,7 +105,7 @@ public abstract class Document {
         this.tax.set(tax);
     }
 
-    public void setClient(String client) {
+    public void setClient(int client) {
         this.client.set(client);
     }
 

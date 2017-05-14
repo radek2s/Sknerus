@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Receipt extends Document{
 
-    public Receipt(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client) {
+    public Receipt(String date, String id, String type, String document, String name, Float value, int amount, String tax, int client) {
         super(date, id, type, document, name, value, amount, tax, client);
     }
 
@@ -46,7 +46,7 @@ public class Receipt extends Document{
     }
 
     @Override
-    public float getAmount() {
+    public int getAmount() {
         return super.getAmount();
     }
 
@@ -56,7 +56,7 @@ public class Receipt extends Document{
     }
 
     @Override
-    public String getClient() {
+    public int getClient() {
         return super.getClient();
     }
 
@@ -91,7 +91,7 @@ public class Receipt extends Document{
     }
 
     @Override
-    public void setAmount(float amount) {
+    public void setAmount(int amount) {
         super.setAmount(amount);
     }
 
@@ -101,7 +101,7 @@ public class Receipt extends Document{
     }
 
     @Override
-    public void setClient(String client) {
+    public void setClient(int client) {
         super.setClient(client);
     }
 }

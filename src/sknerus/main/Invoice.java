@@ -6,7 +6,7 @@ package sknerus.main;
  */
 public class Invoice extends Document {
 
-    public Invoice(String creationDate,String id,String type, String document, String name, float value, float amount, String tax, String client){
+    public Invoice(String creationDate,String id,String type, String document, String name, float value, int amount, String tax, int client){
 
         super(creationDate,id,type,document,name,value,amount,tax,client);
     }
@@ -42,7 +42,7 @@ public class Invoice extends Document {
     }
 
     @Override
-    public float getAmount() {
+    public int getAmount() {
         return amount.get();
     }
 
@@ -52,7 +52,7 @@ public class Invoice extends Document {
     }
 
     @Override
-    public String getClient() {
+    public int getClient() {
         return client.get();
     }
 

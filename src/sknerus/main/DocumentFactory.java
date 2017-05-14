@@ -7,7 +7,7 @@ package sknerus.main;
  */
 public class DocumentFactory {
 
-    public static Document getDocument(String date, String id, String type, String document, String name, Float value, Float amount, String tax, String client){
+    public static Document getDocument(String date, String id, String type, String document, String name, Integer amount, Float value, String tax, Integer client){
 
         if ( document.equalsIgnoreCase("receipt") || document.equalsIgnoreCase("paragon")){
             return new Receipt(date,id,type,document,name,value,amount,tax,client);

@@ -26,7 +26,7 @@ public class InputTest {
 
         //Input values
         String separator = ",";
-        String row = "1451606432,1,income,Payment,PNWA,27.16,171.33,11%,Client30;";
+        String row = "1451606432,1,income,Payment,PNWA,27,171.33,11%,30";
 
         //Add Data
         String[] csvData = row.split(separator);
@@ -41,10 +41,10 @@ public class InputTest {
         assertEquals("income",AppCore.getInstance().data.get(0).getDocType());
         assertEquals("Platnosc",AppCore.getInstance().data.get(0).getType());
         assertEquals("PNWA",AppCore.getInstance().data.get(0).getName());
-        assertEquals(27.16f,AppCore.getInstance().data.get(0).getValue(),0.001);
-        assertEquals(171.33f,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(27,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(171.33f,AppCore.getInstance().data.get(0).getValue(),0.001);
         assertEquals("11%",AppCore.getInstance().data.get(0).getTax());
-        assertEquals("Client30;",AppCore.getInstance().data.get(0).getClient());
+        assertEquals(30,AppCore.getInstance().data.get(0).getClient());
 
     }
     @After
@@ -61,7 +61,7 @@ public class InputTest {
 
         //Input values
         String separator = ",";
-        String row = "1451606432,1,income,Payment,PNWA,27,16,171,33,11%,Client30;";
+        String row = "1451606432,1,income,Payment,PNWA,27,171,33,11%,30;";
 
         //Add Data
         String[] csvData = row.split(separator);
@@ -76,10 +76,10 @@ public class InputTest {
         assertEquals("income",AppCore.getInstance().data.get(0).getDocType());
         assertEquals("Platnosc",AppCore.getInstance().data.get(0).getType());
         assertEquals("PNWA",AppCore.getInstance().data.get(0).getName());
-        assertEquals(27.16f,AppCore.getInstance().data.get(0).getValue(),0.001);
-        assertEquals(171.33f,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(27,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(171.33f,AppCore.getInstance().data.get(0).getValue(),0.001);
         assertEquals("11%",AppCore.getInstance().data.get(0).getTax());
-        assertEquals("Client30;",AppCore.getInstance().data.get(0).getClient());
+        assertEquals(30,AppCore.getInstance().data.get(0).getClient());
 
 
     }
@@ -93,7 +93,7 @@ public class InputTest {
 
         //Input values
         String separator = ",";
-        String row = "1451606432,1s,income,Payment,PNWA,2f7.16,171.33f,11%,Client30;";
+        String row = "1451606432,1s,income,Payment,PNWA,2f7,171.33f,11%,30";
 
         //Add Data
         String[] csvData = row.split(separator);
@@ -108,10 +108,10 @@ public class InputTest {
         assertEquals("income",AppCore.getInstance().data.get(0).getDocType());
         assertEquals("Platnosc",AppCore.getInstance().data.get(0).getType());
         assertEquals("PNWA",AppCore.getInstance().data.get(0).getName());
-        assertEquals(0f,AppCore.getInstance().data.get(0).getValue(),0.001);
-        assertEquals(171.33f,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(0,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(171.33f,AppCore.getInstance().data.get(0).getValue(),0.001);
         assertEquals("11%",AppCore.getInstance().data.get(0).getTax());
-        assertEquals("Client30;",AppCore.getInstance().data.get(0).getClient());
+        assertEquals(30,AppCore.getInstance().data.get(0).getClient());
 
 
     }
@@ -125,7 +125,7 @@ public class InputTest {
 
         //Input values
         String separator = ",";
-        String row = "1451606432,1s,income,Payment,PNWA,2f7,16,171,3s3,11%,Client30;";
+        String row = "1451606432,1s,income,Payment,PNWA,2f7,171,3s3,11%,30;";
 
         //Add Data
         String[] csvData = row.split(separator);
@@ -140,10 +140,10 @@ public class InputTest {
         assertEquals("income",AppCore.getInstance().data.get(0).getDocType());
         assertEquals("Platnosc",AppCore.getInstance().data.get(0).getType());
         assertEquals("PNWA",AppCore.getInstance().data.get(0).getName());
-        assertEquals(0.16f,AppCore.getInstance().data.get(0).getValue(),0.001);
-        assertEquals(171.0f,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(0,AppCore.getInstance().data.get(0).getAmount(),0.001);
+        assertEquals(171.0f,AppCore.getInstance().data.get(0).getValue(),0.001);
         assertEquals("11%",AppCore.getInstance().data.get(0).getTax());
-        assertEquals("Client30;",AppCore.getInstance().data.get(0).getClient());
+        assertEquals(30,AppCore.getInstance().data.get(0).getClient());
 
 
     }

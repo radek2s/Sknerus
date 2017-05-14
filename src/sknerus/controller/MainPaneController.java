@@ -51,11 +51,11 @@ public class MainPaneController implements Initializable {
     @FXML
     private TableColumn<Document, Float> tableCol6;
     @FXML
-    private TableColumn<Document, Float> tableCol7;
+    private TableColumn<Document, Integer> tableCol7;
     @FXML
     private TableColumn<Document, String> tableCol8;
     @FXML
-    private TableColumn<Document, String> tableCol9;
+    private TableColumn<Document, Integer> tableCol9;
 
     @FXML
     private Label currentTime;
