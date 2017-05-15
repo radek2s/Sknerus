@@ -9,6 +9,8 @@ import java.util.Date;
 
 /**
  * @author radek2s
+ * @version created on &{DATE}.
+ *          Description:
  */
 public abstract class Document {
 

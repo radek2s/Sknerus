@@ -39,7 +39,7 @@ public class AppCore {
         Date now = new Date();
 
         // Ustawienie czułości Loggera //
-        LOGGER.setLevel(Level.ALL);
+        LOGGER.setLevel(Level.SEVERE);
         // Zapisywanie Logów do plku //
         try {
             LOGGER.addHandler(new FileHandler("Logs - "+ DateFormat.getDateInstance().format(now) +".xml"));

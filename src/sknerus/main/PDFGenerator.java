@@ -15,11 +15,21 @@ import java.time.LocalDate;
  */
 public class PDFGenerator {
 
+    /**
+     * Set up metadata for PDF file
+     * @param document
+     */
     public static void addMetaData(Document document){
         document.addTitle("Rozliczenie " + LocalDate.now());
         document.addAuthor("Sknerus Company");
     }
 
+    /**
+     * addData - generate PDF with content
+     * @param document
+     * @param type - quality or store
+     * @throws DocumentException
+     */
     public static void addData(Document document, int type) throws DocumentException {
 
         Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
@@ -41,8 +51,46 @@ public class PDFGenerator {
         document.add(new Paragraph(" "));
         document.add(createTable(AppCore.getInstance().data));
 
+        if (type == 1){
+            int incomeCount = 0;
+            int outcomeCount = 0;
+            for (sknerus.main.Document row : AppCore.getInstance().data){
+                if(row.getDocType().equalsIgnoreCase("income")){
+                    incomeCount++;
+                } else if (row.getDocType().equalsIgnoreCase("outcome")){
+                    outcomeCount++;
+                }
+            }
+            document.add(new Paragraph("Liczba przychodow: " + incomeCount));
+            document.add(new Paragraph("Liczba rozchodow: " + outcomeCount));
+        } else if (type == 2){
+            float moneySum = 0;
+            float moneyDiv = 0;
+            for (sknerus.main.Document row : AppCore.getInstance().data){
+                if(row.getDocType().equalsIgnoreCase("income")){
+                    moneySum += row.getAmount() * row.getValue();
+                } else if (row.getDocType().equalsIgnoreCase("outcome")){
+                    moneyDiv += row.getAmount() * row.getValue();
+                } else {
+                    moneyDiv = 0;
+                }
+
+
+
+            }
+
+            float sum = moneySum - moneyDiv;
+            document.add(new Paragraph("Suma wydatkow: " + sum));
+
+        }
 
     }
+
+    /**
+     * Create table based on the data stored in AppCore
+     * @param list
+     * @return
+     */
     
     public static Element createTable(ObservableList list){
 

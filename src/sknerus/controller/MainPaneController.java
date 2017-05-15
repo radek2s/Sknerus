@@ -32,8 +32,11 @@ import java.util.ResourceBundle;
 import java.util.TimerTask;
 
 /**
- * Created by radek_000 on 16.04.2017.
+ * @author radek2s
+ * @version created on 16.04.2017.
+ *          Description:
  */
+
 public class MainPaneController implements Initializable {
 
     @FXML
@@ -60,6 +63,15 @@ public class MainPaneController implements Initializable {
     @FXML
     private Label currentTime;
 
+    DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    final Timeline timeline = new Timeline(
+            new KeyFrame(
+                    Duration.millis(500),
+                    event -> {
+                        currentTime.setText(timeFormat.format(System.currentTimeMillis()));
+                    }
+            )
+    );
 
     @FXML
     public void getDataFromUser(){
@@ -145,6 +157,10 @@ public class MainPaneController implements Initializable {
         refreshTable();
     }
 
+    /**
+     * genStorePDF
+     * generuje plik PDF z podsumowaniem ilosciowym
+     */
     @FXML
     public void genStorePDF(){
 
@@ -152,6 +168,10 @@ public class MainPaneController implements Initializable {
 
     }
 
+    /**
+     * genQualityPDF
+     * generuje plik PDF z podsumowaniem jakosciowym
+     */
     @FXML
     public void genQualityPDF(){
         AppCore.getInstance().generatePDF(2);
@@ -204,15 +224,6 @@ public class MainPaneController implements Initializable {
         );
     }
 
-    DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    final Timeline timeline = new Timeline(
-            new KeyFrame(
-                    Duration.millis(500),
-                    event -> {
-                        currentTime.setText(timeFormat.format(System.currentTimeMillis()));
-                    }
-            )
-    );
 
 
 }

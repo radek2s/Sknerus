@@ -6,8 +6,12 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
 
+
+
 /**
- * Created by radek_000 on 16.04.2017.
+ * @author radek2s
+ * @version created on 16.04.2017.
+ *          Description:
  */
 public class Receipt extends Document{
 
