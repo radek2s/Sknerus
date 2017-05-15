@@ -29,6 +29,8 @@ public class AppCore {
 
     public Stage currentStage = null;
     public final ObservableList<Document> data;
+    private boolean autoCountPDFGenEnable;
+
 
     // Logger do zapisywania logów w programie //
     private final static Logger LOGGER = Logger.getLogger(AppCore.class.getName());
@@ -39,7 +41,7 @@ public class AppCore {
         Date now = new Date();
 
         // Ustawienie czułości Loggera //
-        LOGGER.setLevel(Level.SEVERE);
+        LOGGER.setLevel(Level.ALL);
         // Zapisywanie Logów do plku //
         try {
             LOGGER.addHandler(new FileHandler("Logs - "+ DateFormat.getDateInstance().format(now) +".xml"));
@@ -49,6 +51,8 @@ public class AppCore {
 
         /* --- Przygotowanie danych --- */
         data = FXCollections.observableArrayList();
+        autoCountPDFGenEnable = true;
+
     }
 
     /**
@@ -71,6 +75,15 @@ public class AppCore {
     public static Logger getLogger(){
         return LOGGER;
     }
+
+    public void setAutoCountPDFGenEnable(boolean autoCountPDFGenEnable) {
+        this.autoCountPDFGenEnable = autoCountPDFGenEnable;
+    }
+
+    public boolean isAutoCountPDFGenEnable() {
+        return autoCountPDFGenEnable;
+    }
+
 
     /**
      * Add Data to data ObservableList
@@ -144,28 +157,13 @@ public class AppCore {
         data.add(DocumentFactory.getDocument(
                     params[0],params[1],params[2],params[3],params[4],i_amount,f_value,params[7], Integer.valueOf(params[8])));
 
-
-
-    }
-
-    private boolean isNotNumbersMatchs(String text,String id, String description){
-
-        /* Regex expression */
-        String digitPattern = "^\\d+(\\.\\d+)?[fd]?";
-
-        /* Checking if input is an number */
-        Pattern pattern = Pattern.compile(digitPattern);
-        Matcher matcher = pattern.matcher(text);
-        if ( !matcher.matches() ) {
-            LOGGER.warning("In data with id=" + id + " : '"+ description +"' is not a number! ["+text+"]");
-            return true;
+        if ( AppCore.getInstance().data.size() % 10000 == 0 && AppCore.getInstance().isAutoCountPDFGenEnable()){
+            generatePDF(1);
         }
-        return false;
-
-        // End of regexp section //
 
 
     }
+
 
 
     public void generatePDF(int index){
@@ -189,5 +187,25 @@ public class AppCore {
         }
 
     }
+
+    private boolean isNotNumbersMatchs(String text,String id, String description){
+
+        /* Regex expression */
+        String digitPattern = "^\\d+(\\.\\d+)?[fd]?";
+
+        /* Checking if input is an number */
+        Pattern pattern = Pattern.compile(digitPattern);
+        Matcher matcher = pattern.matcher(text);
+        if ( !matcher.matches() ) {
+            LOGGER.warning("In data with id=" + id + " : '"+ description +"' is not a number! ["+text+"]");
+            return true;
+        }
+        return false;
+
+        // End of regexp section //
+
+
+    }
+
 
 }

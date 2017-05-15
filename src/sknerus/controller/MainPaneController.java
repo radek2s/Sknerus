@@ -4,14 +4,15 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,8 +29,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+
+import static java.util.concurrent.TimeUnit.*;
 
 /**
  * @author radek2s
@@ -59,16 +65,21 @@ public class MainPaneController implements Initializable {
     private TableColumn<Document, String> tableCol8;
     @FXML
     private TableColumn<Document, Integer> tableCol9;
-
+    @FXML
+    private ToggleButton toggleButtonCount;
+    @FXML
+    private ChoiceBox chBox;
     @FXML
     private Label currentTime;
 
+    private Calendar c;
     DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     final Timeline timeline = new Timeline(
             new KeyFrame(
                     Duration.millis(500),
                     event -> {
                         currentTime.setText(timeFormat.format(System.currentTimeMillis()));
+
                     }
             )
     );
@@ -164,7 +175,9 @@ public class MainPaneController implements Initializable {
     @FXML
     public void genStorePDF(){
 
+        AppCore.getLogger().info("Generating Store PDF started...");
         AppCore.getInstance().generatePDF(1);
+        AppCore.getLogger().info("Generating Store PDF finished!");
 
     }
 
@@ -174,8 +187,28 @@ public class MainPaneController implements Initializable {
      */
     @FXML
     public void genQualityPDF(){
+
+
+        AppCore.getLogger().info("Generating Quality PDF started...");
         AppCore.getInstance().generatePDF(2);
+        AppCore.getLogger().info("Generating Quality PDF finished!");
     }
+
+    /**
+     * updateCount
+     * przelaczanie pomiedzy automatycznym generowaniem raportow
+     */
+    @FXML
+    public void updateCount(){
+        if ( toggleButtonCount.isSelected() ){
+            toggleButtonCount.setText("Włączone");
+            AppCore.getInstance().setAutoCountPDFGenEnable(true);
+        } else {
+            toggleButtonCount.setText("Wyłączone");
+            AppCore.getInstance().setAutoCountPDFGenEnable(false);
+        }
+    }
+
 
     @FXML
     public void exit(){
@@ -222,6 +255,27 @@ public class MainPaneController implements Initializable {
         tableCol9.setCellValueFactory(
                 new PropertyValueFactory<>("client")
         );
+
+        chBox.setItems(FXCollections.observableArrayList(
+                "All","Warnings","Severe"
+        ));
+
+        chBox.getSelectionModel().selectedIndexProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        if (newValue.intValue() == 0){
+                            AppCore.getLogger().setLevel(Level.ALL);
+                        } else if (newValue.intValue() == 1){
+                            AppCore.getLogger().setLevel(Level.WARNING);
+                        } else if (newValue.intValue() == 2){
+                            AppCore.getLogger().setLevel(Level.SEVERE);
+                        }
+                    }
+                }
+        );
+
+
     }
 
 

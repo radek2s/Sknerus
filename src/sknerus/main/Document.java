@@ -25,7 +25,14 @@ public abstract class Document {
     protected final SimpleIntegerProperty client;
 
     public Document(String date, String id, String type, String document, String name, Float value, Integer amount, String tax, Integer client){
-        String dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Integer.valueOf(date) * 1000L));
+
+        String dateAsText;
+        if (date.length() == 10){
+            dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Integer.valueOf(date) * 1000L));
+        } else {
+            dateAsText = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(date)));
+        }
+
 
         this.creationDate   = new SimpleStringProperty(dateAsText);
         this.number         = new SimpleStringProperty(id);

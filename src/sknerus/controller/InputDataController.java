@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import sknerus.main.AppCore;
 import sknerus.main.Main;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,9 +38,37 @@ public class InputDataController {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private String dateNow = sdf.format(new Date());
 
+    private Timestamp timestamp;
+
     @FXML
     public void save(){
-        //AppCore.getInstance().addData(tf1.getText(),dateNow , tf2.getText(),tf3.getText(),Float.parseFloat(tf4.getText()), Integer.parseInt(tf5.getText()) );
+
+        timestamp = new Timestamp(System.currentTimeMillis());
+        String time = String.valueOf(timestamp.getTime());
+        String id   = String.valueOf(AppCore.getInstance().data.size()+1);
+        String docType = "income";
+        String tax = "11%";
+
+        String data[] = {
+                time,
+                id,
+                docType,
+                tf1.getText(),
+                tf3.getText(),
+                tf5.getText(),
+                tf4.getText(),
+                tax,
+                tf2.getText()
+        };
+
+        AppCore.getInstance().addData(data);
+
+        tf1.setText("");
+        tf2.setText("");
+        tf3.setText("");
+        tf4.setText("");
+        tf5.setText("");
+
     }
     @FXML
     public void close(){
