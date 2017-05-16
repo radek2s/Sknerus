@@ -197,7 +197,10 @@ public class AppCore {
         Pattern pattern = Pattern.compile(digitPattern);
         Matcher matcher = pattern.matcher(text);
         if ( !matcher.matches() ) {
-            LOGGER.warning("In data with id=" + id + " : '"+ description +"' is not a number! ["+text+"]");
+            if( !description.equalsIgnoreCase("client field")){
+                LOGGER.warning("In data with id=" + id + " : '"+ description +"' is not a number! ["+text+"]");
+            }
+
             return true;
         }
         return false;

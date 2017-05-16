@@ -72,7 +72,7 @@ public class MainPaneController implements Initializable {
     @FXML
     private Label currentTime;
 
-    private Calendar c;
+
     DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     final Timeline timeline = new Timeline(
             new KeyFrame(

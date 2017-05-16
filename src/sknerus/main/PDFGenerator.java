@@ -143,6 +143,9 @@ public class PDFGenerator {
         table.addCell(cell9);
 
         for (Object row : list) {
+            if (row == null){
+                continue;
+            }
             String[] temp = row.toString().split(";");
             table.addCell(temp[3]);
             table.addCell(temp[0]);
